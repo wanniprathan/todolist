@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />    
+    <title>Create user</title>    
+    <script src="superfetch.js"></script>
+     <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="login-page">
+    <div class="form">
+        <form class="login-form">
+        <input id="inpname" type="text" placeholder="User name" />
+        <input id="inpass" type="text" placeholder="password" />
+        <input id="inpfullname" type="text" placeholder="full name" />
+        <button id="btnCreate">Create</button>
+        <p class="message">Already Registrered <a href="#">Log in</a></p>
+        </form>
+    </div>
+    </div>
+    
+    
+ 
+    
+</body>
+<script>
+    
+    var inpname = document.getElementById("inpname");
+    var inpass = document.getElementById("inpass");
+    var inpfullname = document.getElementById("inpfullname");    
+    var btnCreate = document.getElementById("btnCreate"); 
+    
+    //button click ---------------------------------
+    btnCreate.onclick = function() {   
+    
+        var upload = JSON.stringify({            
+            loginname: inpname.value,
+            password: inpass.value,
+            fullname: inpfullname.value            
+        });       
+        
+        var url = "http://localhost:3001/postuser";
+
+        var cfg = {
+            method: "POST",            
+            body: upload,
+            mode: 'no-cors'
+        }      
+
+        superfetch(url, "json", succ, error, cfg);
+    }
+    
+    //success --------------------------------------
+    function succ(data) {
+        //save logindata/token to localStorage 
+        localStorage.setItem("logindata", JSON.stringify(data));
+    }
+    
+    //error ----------------------------------------
+    function error(err) {
+        //console.log(err);
+    }
+
+</script>
+
+</html>
