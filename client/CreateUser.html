@@ -10,17 +10,11 @@
 
 <body>
 
-    <div class="login-page">
-    <div class="form">
-        <form class="login-form">
         <input id="inpname" type="text" placeholder="User name" />
         <input id="inpass" type="text" placeholder="password" />
         <input id="inpfullname" type="text" placeholder="full name" />
         <button id="btnCreate">Create</button>
-        <p class="message">Already Registrered <a href="#">Log in</a></p>
-        </form>
-    </div>
-    </div>
+       
     
     
  
@@ -30,39 +24,43 @@
     
     var inpname = document.getElementById("inpname");
     var inpass = document.getElementById("inpass");
-    var inpfullname = document.getElementById("inpfullname");    
+    var inpfullname = document.getElementById("inpfullname");        
     var btnCreate = document.getElementById("btnCreate"); 
     
-    //button click ---------------------------------
-    btnCreate.onclick = function() {   
     
+    
+    btnCreate.onclick = function() { 
+        
+        
         var upload = JSON.stringify({            
             loginname: inpname.value,
             password: inpass.value,
             fullname: inpfullname.value            
         });       
         
-        var url = "http://localhost:3001/postuser";
+        var url = "http://localhost:3001/postuser/";
 
         var cfg = {
             method: "POST",            
-            body: upload,
-            mode: 'no-cors'
-        }      
+            body: upload
+        }    
 
-        superfetch(url, "json", succ, error, cfg);
+      superfetch(url, "text", succ, error, cfg);
     }
+         
+        
+  
     
-    //success --------------------------------------
     function succ(data) {
-        //save logindata/token to localStorage 
-        localStorage.setItem("logindata", JSON.stringify(data));
+        console.log(data);
     }
     
-    //error ----------------------------------------
     function error(err) {
-        //console.log(err);
+        console.log(err);
     }
+
+      
+
 
 </script>
 

@@ -17,11 +17,11 @@ router.get('/', function (req, res) {
     });   
 });
 //POST user
-app.post('/test', function(req, res)){
-        
+app.post('/test', function(req, res) {
             console.log(JSON.stringify(req.body))
         //var sql = `INSERT INTO users VALUES(DEFAULT, )
-            }
+})
+        
 //export module -------------------------------------
 module.exports = router;
 
