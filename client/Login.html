@@ -12,6 +12,8 @@
         <input id="inpass" type="text" placeholder="password" />
         <button id="btnLoginn">Log inn</button>
          <p class="message">Not Registered? <a href="#">Register</a></p>
+        
+          <h2 id="txtinfo"></h2>
             
 
     <script>
@@ -19,6 +21,9 @@
             var inpname = document.getElementById("inpname");
             var inpass = document.getElementById("inpass");       
             var btnLoginn = document.getElementById("btnLoginn");
+            var txtinfo = document.getElementById("txtinfo"); 
+    
+        
             
          //button click ---------------------------------
         btnLoginn.onclick = function() {
@@ -28,14 +33,14 @@
             inpass: inpass.value            
         });
         
-        var url = "http://localhost:3001/postuser/";
+        var url = "http://localhost:3001/loginn/";
 
         var cfg = {
             method: "POST",            
             body: upload
         }      
 
-        superfetch(url, "text", succ, error, cfg);
+        superfetch(url, "json", succ, error, cfg);
             
         }      
 
@@ -43,6 +48,7 @@
         function succ(data) {
         
         console.log(data);
+        txtinfo.innerHTML = "Velkommen bruker, " + data.loginname + ", du er nå logget inn på To Do List ";
         
         //save logindata/token to localStorage 
         localStorage.setItem("logindata", JSON.stringify(data));
