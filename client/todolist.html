@@ -3,28 +3,143 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>To do list</title>    
+    <title>Todo list</title>    
     <script src="superfetch.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <!-- HEADER -->
+    <!--header id="main-header"-->
+      <!--div class="container"-->
+    <select id="selLists"></select>
+        <input id="title" type="text" placeholder="Liste navn">
+        <input id="content" type="text" placeholder="Skriv inn aktivitet til listen">
+        <input id="dato" type="date">
+        <button id="btnCreate">Lag liste</button>
+        <button id="btnDelete">Slette Liste</button>
+    
+    
+    <div id="items"></div>
+         
+      <!--/div-->  
+    <!--/header-->
+    
     
 </body>
 
 <script>
     
-    var url = "http://localhost:3001/";
-    superfetch(url, "json", succ, error);
+    var title = document.getElementById("title");
+    var content = document.getElementById("content");
+    var btnCreate = document.getElementById("btnCreate");
+    var btnDelete = document.getElementById("btnDelete");
+    var dato = document.getElementById("dato");
+    var selLists = document.getElementById("selLists");
+     var items = document.getElementById("items");
+    
+    fillSelect();
+    fillItemlist();
+    
+    
+    function fillSelect() {
+        
+        var url = "http://localhost:3001/list/";
+             
+
+        superfetch(url, "json", function(data){
+            
+            
+           for (var i = 0; i < data.length; i++){
+               
+               var op = document.createElement("option");
+               op.innerHTML=data[i].list_name;
+               op.value = data[i].id;
+               selLists.appendChild(op);
+               
+               //få tak i listeideen fra select med: selLists.value
+               
+           }
+            
+        }, function(err){
+            
+            console.log(err);
+            
+        });
+        
+    }
+    
+    //Button click-----------
+    btnCreate.onclick = function() {
+        
+         var upload = JSON.stringify({            
+            title: title.value,
+            content: content.value,
+             dato: dato.value,
+             listId: selLists.value
+                      
+        });
+        
+        var token = JSON.parse(localStorage.getItem("logindata")).token;  
+        var url = "http://localhost:3001/listItems/";
+        
+
+        var cfg = {
+            method: "POST",            
+            body: upload
+            
+        }      
+
+        superfetch(url, "json", succ, error, cfg);
+    }
+    
+    //var url = "http://localhost:3001/";
+    //superfetch(url, "json", succ, error);
     
     //success --------------------------------------
     function succ(data) {
-        console.log(data);
+       fillItemlist();
     }
     
     //error ----------------------------------------
     function error(err) {
         console.log(err);
-    }   
+    }
+    
+    
+    
+               //Funksjonen fillItemList henter ut alt på get listItems
+    
+    
+    function fillItemlist() {
+        
+         var url = "http://localhost:3001/listItems/";
+           
+
+        superfetch(url, "json", function(data){
+            
+            console.log(data);
+            
+            items.innerHTML = "";
+            
+           for (var i = 0; i < data.length; i++){
+               
+               items.innerHTML += "<h3> Todo " + data[i].title + "</h3>";
+               items.innerHTML += "<h3> Du må: " + data[i].data + "</h3>";
+               items.innerHTML += "<h3> Dato: " + data[i].dato + "</h3>";
+               items.innerHTML += "<hr>";
+              
+               
+               
+           }
+            
+        }, function(err){
+            
+            console.log(err);
+            
+        });
+        
+    }
 
 </script>
 

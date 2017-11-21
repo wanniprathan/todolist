@@ -5,23 +5,8 @@ body{
     background-position: center;
 }
 
-.login-page{
-    width: 340px;
-    padding: 10% 0 0;
-    margin: auto;
-}
 
-.form{
-    position: relative;
-    z-index: 1;
-    background: #ffffff;
-    max-width: 360px;
-    margin: 0 auto 100px;
-    padding: 45px;
-    text-align: center;    
-}
-
-.form input{
+input{
     font-family: "Roboto", sans-serif;
     outline: 1;
     background: #f2f2f2;
@@ -33,7 +18,7 @@ body{
     font-size: 14px;
 }
 
-.form button{
+button{
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     outline: 0;
@@ -46,23 +31,43 @@ body{
     cursor: pointer;
 }
 
-.form button:hover,.form button:active{
+button:hover,.form button:active{
     background: #43A047;
 }
 
-.form .message{
-    margin: 15px;
-    color: aquamarine;
-    font-size: 12px;
+header {
+  
+  width: 70%;
+  height: 70%;
+  
 }
 
-.form. .message a{
-    color: #4CAF50;
-    text-decoration: none;
+header input {
+   
+}
+ 
+.container {
+    display: flex;
+    background-color: #ffffff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.container>div {
+    background-color: f1f1f1;
+    margin: 10px;
+    padding: 20px;
+    font-size: 30px;
+    
 }
 
-.form .create-form{
-    display: none;
+div {
+    color: white;
 }
+
+select {
+    box-sizing: inherit;
+}
+
 
 
