@@ -50,37 +50,7 @@
     fillSelect();
     fillItemlist();
    
-    //funksjonen her lagrer/lager nye verdier i select--------------
-    
-    function fillSelect() {
-        
-        var url = "http://localhost:3001/list/";
-             
-
-        superfetch(url, "json", function(data){
-            
-            selLists.innerHTML = "";
-            
-           for (var i = 0; i < data.length; i++){
-               
-               var op = document.createElement("option");
-               op.innerHTML=data[i].list_name;
-               op.value = data[i].id;
-               selLists.appendChild(op);
-               
-               //få tak i listeideen fra select med: selLists.value
-               
-           }
-            
-        }, function(err){
-            
-            console.log(err);
-            
-        });
-        
-    }
-    
-    
+  
       
     //Knappen her lager liste-----------
     btnCreate.onclick = function() {
@@ -142,44 +112,6 @@
     }
     
     
-  
-    
-    
-    //Funksjonen fillItemList henter ut alt på get listItems
-    
-    
-    function fillItemlist() {
-        
-         var url = "http://localhost:3001/listItems/";
-           
-
-        superfetch(url, "json", function(data){
-            
-            console.log(data);
-            
-            items.innerHTML = "";
-            
-           for (var i = 0; i < data.length; i++){
-               
-               var dato = new Date(data[i].dato).toDateString();
-               
-               items.innerHTML += "<h3> " + data[i].title + "</h3>";
-               items.innerHTML += "<h3> " + data[i].data + "</h3>";
-               items.innerHTML += "<h3> Dato: " + dato + "</h3>";
-               items.innerHTML += "<hr>";
-              
-               
-               
-           }
-            
-        }, function(err){
-            
-            console.log(err);
-            
-        });
-        
-    }
-    
     
     //Funksjon delete, sletter lister
     btnDelete.onclick = function() {
@@ -213,19 +145,86 @@
             
         }, cfg);
         
-        
-        
+    
         
         
     }
-    
-    
+     
     //error ----------------------------------------
     function error(err) {
         console.log(err);
     }
     
     
+    
+    
+    //funksjonen her lagrer/lager nye verdier i select--------------
+    
+    function fillSelect() {
+        
+        var url = "http://localhost:3001/list/";
+             
+
+        superfetch(url, "json", function(data){
+            
+            selLists.innerHTML = "";
+            
+           for (var i = 0; i < data.length; i++){
+               
+               var op = document.createElement("option");
+               op.innerHTML=data[i].list_name;
+               op.value = data[i].id;
+               selLists.appendChild(op);
+               
+               //få tak i listeideen fra select med: selLists.value
+               
+           }
+            
+        }, function(err){
+            
+            console.log(err);
+            
+        });
+        
+    }
+    
+    
+      
+    
+    //Funksjonen fillItemList henter ut alt på get listItems
+    
+    
+    function fillItemlist() {
+        
+         var url = "http://localhost:3001/listItems/";
+           
+
+        superfetch(url, "json", function(data){
+            
+            console.log(data);
+            
+            items.innerHTML = "";
+            
+           for (var i = 0; i < data.length; i++){
+               
+               var dato = new Date(data[i].dato).toDateString();
+               
+               items.innerHTML += "<h3> " + data[i].list_name + "</h3>";
+               items.innerHTML += "<h3> " + data[i].data + "</h3>";
+               items.innerHTML += "<h3> Deadline: " + dato + "</h3>";
+               items.innerHTML += "<hr>";
+              
+               
+               
+           }
+            
+        }, function(err){
+            
+            console.log(err);
+            
+        });
+        
+    }
 
 </script>
 

@@ -65,8 +65,15 @@
     function succ(data) {
         console.log(data);
         
+        if(data.msg == "Ugyldig brukernavn!!"){
+            //alert("Brukeren finnes fra før");
+            txtinfo.innerHTML = "Brukeren finnes fra før!";
+        }
+        else{
+        
         txtinfo.innerHTML = "Brukeren, " + data.loginname + ", er oppretted. Fullt navn " + data.fullname;
         
+        }
         /*for (var i = 0; i<data.length; i++){
             var div = document.createElement("div");
             
