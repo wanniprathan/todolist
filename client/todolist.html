@@ -14,10 +14,15 @@
       <!--div class="container"-->
     <select id="selLists"></select>
         <input id="title" type="text" placeholder="Liste navn">
-        <input id="content" type="text" placeholder="Skriv inn aktivitet til listen">
+         <button id="btnCreate">Lag liste</button>
+          <br><br>
+         <button id="btnDelete">Slette Liste</button>
+          <br><br>
+        <input id="content" type="text" placeholder="Hva skal du huske på?">
         <input id="dato" type="date">
-        <button id="btnCreate">Lag liste</button>
-        <button id="btnDelete">Slette Liste</button>
+        <button id="btnlistELement">Legg til mere på listen</button>
+        
+       
     
     
     <div id="items"></div>
@@ -31,16 +36,21 @@
 <script>
     
     var title = document.getElementById("title");
-    var content = document.getElementById("content");
     var btnCreate = document.getElementById("btnCreate");
     var btnDelete = document.getElementById("btnDelete");
+    
+    var content = document.getElementById("content");
     var dato = document.getElementById("dato");
+    var btnlistELement = document.getElementById("btnlistELement");
+    
     var selLists = document.getElementById("selLists");
-     var items = document.getElementById("items");
+    var items = document.getElementById("items");
+    //var d = new Date(year, month, day);
     
     fillSelect();
     fillItemlist();
-    
+   
+    //funksjonen her lagrer/lager nye verdier i select--------------
     
     function fillSelect() {
         
@@ -49,6 +59,7 @@
 
         superfetch(url, "json", function(data){
             
+            selLists.innerHTML = "";
             
            for (var i = 0; i < data.length; i++){
                
@@ -69,15 +80,52 @@
         
     }
     
-    //Button click-----------
+    
+      
+    //Knappen her lager liste-----------
     btnCreate.onclick = function() {
+        
+         var upload = JSON.stringify({            
+            title: title.value
+                    
+        });
+        
+        var token = JSON.parse(localStorage.getItem("logindata")).token;  
+        var url = "http://localhost:3001/list/";
+        
+
+        var cfg = {
+            method: "POST",            
+            body: upload
+            
+        }      
+
+        superfetch(url, "json", succ, error, cfg);
+    }
+   
+    
+    //success --------------------------------------
+    function succ(data) {
+       fillItemlist();
+       fillSelect();
+    }
+    
+    //error ----------------------------------------
+    function error(err) {
+        console.log(err);
+    }
+    
+    
+      
+     //Knappen her legger til mere på listen-----------
+    btnlistELement.onclick = function() {
         
          var upload = JSON.stringify({            
             title: title.value,
             content: content.value,
              dato: dato.value,
              listId: selLists.value
-                      
+                    
         });
         
         var token = JSON.parse(localStorage.getItem("logindata")).token;  
@@ -93,22 +141,11 @@
         superfetch(url, "json", succ, error, cfg);
     }
     
-    //var url = "http://localhost:3001/";
-    //superfetch(url, "json", succ, error);
     
-    //success --------------------------------------
-    function succ(data) {
-       fillItemlist();
-    }
-    
-    //error ----------------------------------------
-    function error(err) {
-        console.log(err);
-    }
+  
     
     
-    
-               //Funksjonen fillItemList henter ut alt på get listItems
+    //Funksjonen fillItemList henter ut alt på get listItems
     
     
     function fillItemlist() {
@@ -124,9 +161,11 @@
             
            for (var i = 0; i < data.length; i++){
                
-               items.innerHTML += "<h3> Todo " + data[i].title + "</h3>";
-               items.innerHTML += "<h3> Du må: " + data[i].data + "</h3>";
-               items.innerHTML += "<h3> Dato: " + data[i].dato + "</h3>";
+               var dato = new Date(data[i].dato).toDateString();
+               
+               items.innerHTML += "<h3> " + data[i].title + "</h3>";
+               items.innerHTML += "<h3> " + data[i].data + "</h3>";
+               items.innerHTML += "<h3> Dato: " + dato + "</h3>";
                items.innerHTML += "<hr>";
               
                
@@ -140,6 +179,53 @@
         });
         
     }
+    
+    
+    //Funksjon delete, sletter lister
+    btnDelete.onclick = function() {
+        
+        var upload = JSON.stringify({            
+            title: title.value,
+            content: content.value,
+             dato: dato.value,
+             listId: selLists.value
+                    
+        });
+        
+        var token = JSON.parse(localStorage.getItem("logindata")).token;  
+        var url = "http://localhost:3001/list/?listeid=" + selLists.value;
+        
+
+        var cfg = {
+            method: "DELETE"
+            
+        }      
+
+        superfetch(url, "json", function(data){
+            
+            console.log(data);
+            fillSelect();
+            fillItemlist();
+            
+        }, function(err){
+            
+            console.log(err);
+            
+        }, cfg);
+        
+        
+        
+        
+        
+    }
+    
+    
+    //error ----------------------------------------
+    function error(err) {
+        console.log(err);
+    }
+    
+    
 
 </script>
 

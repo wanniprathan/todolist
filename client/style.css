@@ -1,12 +1,14 @@
 body{
-    background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(icon/turusa%20.jpg);
+    background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(icon/notes.jpg);
     height: 100vh;
     background-size: cover;
     background-position: center;
+
 }
 
 
 input{
+    
     font-family: "Roboto", sans-serif;
     outline: 1;
     background: #f2f2f2;
@@ -19,6 +21,7 @@ input{
 }
 
 button{
+    
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     outline: 0;
