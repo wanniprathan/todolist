@@ -61,7 +61,7 @@
         });
         
         var token = JSON.parse(localStorage.getItem("logindata")).token;  
-        var url = "http://localhost:3001/list/";
+        var url = "http://localhost:3001/list/?token=" + token;
         
 
         var cfg = {
@@ -99,7 +99,7 @@
         });
         
         var token = JSON.parse(localStorage.getItem("logindata")).token;  
-        var url = "http://localhost:3001/listItems/";
+        var url = "http://localhost:3001/listitem/?token=" + token;
         
 
         var cfg = {
@@ -125,7 +125,7 @@
         });
         
         var token = JSON.parse(localStorage.getItem("logindata")).token;  
-        var url = "http://localhost:3001/list/?listeid=" + selLists.value;
+        var url = "http://localhost:3001/list/?listeid=" + selLists.value + "&token=" + token;
         
 
         var cfg = {
@@ -162,7 +162,8 @@
     
     function fillSelect() {
         
-        var url = "http://localhost:3001/list/";
+        var token = JSON.parse(localStorage.getItem("logindata")).token; 
+        var url = "http://localhost:3001/list/?token=" + token;
              
 
         superfetch(url, "json", function(data){
@@ -191,12 +192,13 @@
     
       
     
-    //Funksjonen fillItemList henter ut alt på get listItems
+    //Funksjonen fillItemList henter ut alt på get listItem
     
     
     function fillItemlist() {
         
-         var url = "http://localhost:3001/listItems/";
+         var token = JSON.parse(localStorage.getItem("logindata")).token; 
+         var url = "http://localhost:3001/listitem/?token=" + token;
            
 
         superfetch(url, "json", function(data){
@@ -213,9 +215,7 @@
                items.innerHTML += "<h3> " + data[i].data + "</h3>";
                items.innerHTML += "<h3> Deadline: " + dato + "</h3>";
                items.innerHTML += "<hr>";
-              
-               
-               
+                  
            }
             
         }, function(err){

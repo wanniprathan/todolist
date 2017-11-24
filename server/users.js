@@ -8,8 +8,8 @@ var bcrypt = require('bcrypt');
 var secret = "Oops!";// used to create the token
 
 
-//endpoint: POST users------------------------------
-router.post('/postuser', bodyparser, function(req, res)){
+//endpoint: POST users med kryptert passw, lag ny bruker------------------------------
+router.post('/', bodyparser, function(req, res){
 
     var upload = JSON.parse(req.body);
     var encrPassw = bcrypt.hashSync(upload.password, 10); //hash the password
@@ -28,30 +28,53 @@ router.post('/postuser', bodyparser, function(req, res)){
         
     }).catch(function(err) {
         
-      res.status(500).json{err});
+      res.status(500).json({msg: err});
         
     });
             
 });
 
 
-
-
-
-
-
-
-
-
-
-/*
-//endpoint: GET travels -----------------------------
-router.get('/', function (req, res) {   
+//---------------------------------------------------------
+//---post for login hører til Login.html// loginn-----
+router.post('/login/', bodyparser, function (req, res) {
     
-    var sql = 'SELECT * FROM usersview';
-    db.any(sql).then(function(data) {        
+    /*res.set('Access-Control-Allow-Origin', '*'); 
+    res.set("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+    res.set( " Access- Control-Allow -Headers : *") ;*/
+    
+    //var upload = JSON.parse(req.body) om man skal ha tak i bruker navn så skriv .brukernavn;
+    var upload = JSON.parse(req.body);
+    
+    console.log(req.body);
+    var sql = `PREPARE check_users (text, text) AS SELECT * FROM users WHERE user_name=$1 AND user_password=$2; EXECUTE check_users ('${upload["inpname"]}', '${upload["inpass"]}') `; //SQL query
+    
+   
+    
+    console.log(sql);
+    
+       db.any(sql).then(function(data) {
         
-        res.status(200).json(data); //success – send the data as JSON!
+        db.any("DEALLOCATE check_users");
+           
+        if (data.length <= 0) {
+            res.status(200).json({msg: "Ugyldig bruker!!"}); //success!
+            return;
+        }
+           
+            
+        
+          //create the token
+        var payload = {loginname: upload.impname, fullname: data[0].fullname};
+        var tok = jwt.sign(payload, secret, {expiresIn: "12h"});
+           
+        var senddata = {
+            loginname: upload["inpname"],
+            fullname: upload["inpass"],
+            token: tok
+        }
+           
+        res.status(200).json(senddata); //success!
 
     }).catch(function(err) {        
         
@@ -59,13 +82,17 @@ router.get('/', function (req, res) {
         
     });   
 });
-//POST user
-app.post('/test', function(req, res) {
-            console.log(JSON.stringify(req.body))
-        //var sql = `INSERT INTO users VALUES(DEFAULT, )
-})
 
-*/
+
+
+//---------------------------------------------------------
+
+
+
+
+
+
+
 
 //export module -------------------------------------
 module.exports = router;

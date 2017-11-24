@@ -16,7 +16,7 @@
         <br>
         <br>
         <input id="inpname" type="text" placeholder="User name" />
-        <input id="inpass" type="text" placeholder="password" />
+        <input id="inpass" type="password" placeholder="password" />
         <input id="inpfullname" type="text" placeholder="full name" />
     <br>
         <button id="btnCreate">Create</button>
@@ -49,7 +49,7 @@
             fullname: inpfullname.value            
         });       
         
-        var url = "http://localhost:3001/postuser/";
+        var url = "http://localhost:3001/users/";
 
         var cfg = {
             method: "POST",            
