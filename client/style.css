@@ -34,8 +34,8 @@ button{
     cursor: pointer;
 }
 
-button:hover,.form button:active{
-    background: #43A047;
+button:hover{
+    background: #43a04e;
 }
 
 header {
@@ -72,5 +72,10 @@ select {
     box-sizing: inherit;
 }
 
-
+.klassenavnknapp{
+    background: #f01d2d;
+    color: #FFFFFF;
+    
+   
+}
 

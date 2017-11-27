@@ -21,11 +21,12 @@
         <input id="content" type="text" placeholder="Hva skal du huske på?">
         <input id="dato" type="date">
         <button id="btnlistELement">Legg til mere på listen</button>
+          <br><br>
         
        
     
     
-    <div id="items"></div>
+       <div id="items"></div>
          
       <!--/div-->  
     <!--/header-->
@@ -42,6 +43,7 @@
     var content = document.getElementById("content");
     var dato = document.getElementById("dato");
     var btnlistELement = document.getElementById("btnlistELement");
+    var btnDeletelistELement = document.getElementById("btnDeletelistELement");
     
     var selLists = document.getElementById("selLists");
     var items = document.getElementById("items");
@@ -86,34 +88,8 @@
     }
     
     
-      
-     //Knappen her legger til mere på listen-----------
-    btnlistELement.onclick = function() {
-        
-         var upload = JSON.stringify({            
-            title: title.value,
-            content: content.value,
-             dato: dato.value,
-             listId: selLists.value
-                    
-        });
-        
-        var token = JSON.parse(localStorage.getItem("logindata")).token;  
-        var url = "http://localhost:3001/listitem/?token=" + token;
-        
-
-        var cfg = {
-            method: "POST",            
-            body: upload
-            
-        }      
-
-        superfetch(url, "json", succ, error, cfg);
-    }
     
-    
-    
-    //Funksjon delete, sletter lister
+     //Funksjon delete, sletter lister
     btnDelete.onclick = function() {
         
         var upload = JSON.stringify({            
@@ -143,10 +119,7 @@
             
             console.log(err);
             
-        }, cfg);
-        
-    
-        
+        }, cfg);    
         
     }
      
@@ -157,6 +130,63 @@
     
     
     
+      
+     //Knappen her legger til mere på listen-----------
+    btnlistELement.onclick = function() {
+        
+         var upload = JSON.stringify({            
+            title: title.value,
+            content: content.value,
+             dato: dato.value,
+             listId: selLists.value
+                    
+        });
+        
+        var token = JSON.parse(localStorage.getItem("logindata")).token;  
+        var url = "http://localhost:3001/listitem/?token=" + token;
+        
+
+        var cfg = {
+            method: "POST",            
+            body: upload
+            
+        }      
+
+        superfetch(url, "json", succ, error, cfg);
+    }
+    
+   
+    //Knappen her sletter innehold i selveste listen
+    function deleteLstElm(evt) {
+        
+        
+        var listitemid = evt.currentTarget.id;        
+        
+         var token = JSON.parse(localStorage.getItem("logindata")).token;  
+        var url = "http://localhost:3001/listitem/?listitemid=" + listitemid + "&token=" + token;
+        
+
+        var cfg = {
+            method: "DELETE"
+            
+        }      
+
+        superfetch(url, "json", function(data){
+            
+            console.log(data);
+            //fillSelect();
+            fillItemlist();
+            
+        }, function(err){
+            
+            console.log(err);
+            
+        }, cfg);    
+        
+    }
+    
+   
+
     
     //funksjonen her lagrer/lager nye verdier i select--------------
     
@@ -209,12 +239,33 @@
             
            for (var i = 0; i < data.length; i++){
                
+               var div = document.createElement("div");
+               var h3_1 = document.createElement("h3");
+               //h3_1.classList.add("klassenavn");
+               var h3_2 = document.createElement("h3");
+               var h3_3 = document.createElement("h3");
+               var btn = document.createElement("button");
+               btn.classList.add("klassenavnknapp");
+               var hr = document.createElement("hr");
+               
+               
                var dato = new Date(data[i].dato).toDateString();
                
-               items.innerHTML += "<h3> " + data[i].list_name + "</h3>";
-               items.innerHTML += "<h3> " + data[i].data + "</h3>";
-               items.innerHTML += "<h3> Deadline: " + dato + "</h3>";
-               items.innerHTML += "<hr>";
+               h3_1.innerHTML = "<h3> " + data[i].list_name + "</h3>";
+               h3_2.innerHTML = "<h3> " + data[i].data + "</h3>";
+               h3_3.innerHTML = "<h3> Deadline: " + dato + "</h3>";
+               btn.innerHTML = "Delete";
+               btn.addEventListener("click", deleteLstElm);
+               btn.id = data[i].itemid;
+               hr.innerHTML = "<hr>";
+               
+               div.appendChild(h3_1);
+               div.appendChild(h3_2);
+               div.appendChild(h3_3);
+               div.appendChild(btn);               
+               div.appendChild(hr);
+               
+               items.appendChild(div);
                   
            }
             

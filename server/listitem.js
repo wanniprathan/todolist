@@ -109,6 +109,37 @@ router.get('/', function (req, res) { //eksempel for senere -- app.get('/users/'
 });
 
 
+
+//--ENDPOINT for DELETE-- Sletter innhold i listen
+router.delete('/', function (req, res) {      
+    
+    
+    var upload = req.query.listitemid; //uploaded data should be sanitized
+
+    
+    var sql = `PREPARE delete_listitems (int) AS
+            DELETE FROM listitems WHERE id=$1 RETURNING *;
+            EXECUTE delete_listitems(${upload})`; 
+    
+    console.log(sql);
+    
+    db.any(sql).then(function(data) {
+        
+        db.any("DEALLOCATE delete_listitems");       
+        
+        if (data.length > 0) {
+            res.status(200).json({msg: "delete ok"}); //success!
+        }
+        else {
+            res.status(200).json({msg: "can't delete"});
+        }       
+
+    }).catch(function(err) {
+        res.status(500).json(err);        
+    });   
+});
+
+
 //--------------------------------------------------------------------
 /*
 //endpoint: POST list hører til todolist.html //listitem-----------------------------
