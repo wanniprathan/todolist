@@ -12,7 +12,11 @@ var secret = "Oops!";// used to create the token
 router.post('/', bodyparser, function(req, res){
 
     var upload = JSON.parse(req.body);
+    console.log(upload.password);
     var encrPassw = bcrypt.hashSync(upload.password, 10); //hash the password
+    upload['encrPassw'] = encrPassw;
+    
+    console.log(upload['encrPassw']);
 
     var sql = `PREPARE insert_users (int, text, text, text) AS INSERT INTO users VALUES(DEFAULT, $2, $3, $4); EXECUTE insert_users (0, '${upload["loginname"]}', '${upload["encrPassw"]}', '${upload["fullname"]}')`;
 
@@ -46,32 +50,48 @@ router.post('/login/', bodyparser, function (req, res) {
     //var upload = JSON.parse(req.body) om man skal ha tak i bruker navn så skriv .brukernavn;
     var upload = JSON.parse(req.body);
     
-    console.log(req.body);
-    var sql = `PREPARE check_users (text, text) AS SELECT * FROM users WHERE user_name=$1 AND user_password=$2; EXECUTE check_users ('${upload["inpname"]}', '${upload["inpass"]}') `; //SQL query
+    console.log(upload, " is the upload");
     
-   
+    //var encrPassw = bcrypt.hashSync(upload.inpass, 10); 
+    //upload['encrPassw'] = encrPassw;
     
-    console.log(sql);
+    //console.log(upload['encrPassw']);
+    
+    //console.log(req.body);
+    var sql = `PREPARE check_users (text) AS SELECT * FROM users WHERE user_name=$1; EXECUTE check_users ('${upload["inpname"]}') `; //SQL query
+
     
        db.any(sql).then(function(data) {
         
         db.any("DEALLOCATE check_users");
+        
+           console.log(data);
+          
+        var psw = upload.inpass;
+        var encPsw = data[0].user_password;
+        var result = bcrypt.compareSync(psw, encPsw);
+        
            
-        if (data.length <= 0) {
-            res.status(200).json({msg: "Ugyldig bruker!!"}); //success!
+        console.log(result);
+
+        if(!result){
+            res.status(403).json({msg: 'Wrong password'});
             return;
         }
+        //if (data.length <= 0) {
+        //    console.log(data);
+        //    res.status(200).json({msg: "Ugyldig bruker!!"}); //success!
+        //    return;
+        //}
            
-            
-        
-          //create the token
-        var payload = {loginname: upload.impname, fullname: data[0].fullname};
+        //create the token
+        var payload = {userid: data[0].id, loginname: upload.inpname, fullname: data[0].fullname};
         var tok = jwt.sign(payload, secret, {expiresIn: "12h"});
            
         var senddata = {
             loginname: upload["inpname"],
-            fullname: upload["inpass"],
             token: tok
+        
         }
            
         res.status(200).json(senddata); //success!

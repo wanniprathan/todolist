@@ -8,7 +8,7 @@ var jwt = require("jsonwebtoken");
 var secret = "Oops!";// used to create the token
 var logindata; //logindata from the token
 
-//Authorize all travel-endpoints --------------------
+//Authorize all list-endpoints --------------------
 router.use(function (req, res, next) {    
     
     //get the token from the URL-variable named 'token'
@@ -23,6 +23,7 @@ router.use(function (req, res, next) {
     else {
         try {
           logindata = jwt.verify(token, secret); //check the token
+            
         }
         catch(err) {
           res.status(403).json({msg: "The token is not valid!"}); //send
@@ -52,9 +53,12 @@ router.post('/', bodyparser, function (req, res) {
 
     var upload = JSON.parse(req.body);
     
-    console.log(upload)
+   // console.log(req.body);
+    console.log(logindata);
 
-     var sql = `PREPARE insert_lists (int, text,int) AS INSERT INTO lists VALUES(DEFAULT, $2, $3); EXECUTE insert_lists (0, '${upload["title"]}', 1)`; //SQL query
+     var sql = `PREPARE insert_lists (int, text, int, text) AS INSERT INTO lists VALUES(DEFAULT, $2, $3, $4); EXECUTE insert_lists (0, '${upload["title"]}', ${logindata.userid}, '${logindata.loginname}')`; //SQL query
+    
+    //var sql = `INSERT INTO lists VALUES(DEFAULT,'${upload["title"]}', ${logindata.userid}, ${logindata.loginname})`
     
     
     console.log(sql);

@@ -46,16 +46,12 @@ router.use(function (req, res, next) {
 //endpoint: POST list hører til todolist.html//listItem-----------------------------
 router.post('/', bodyparser, function (req, res) {
     
-    
-    
     /*res.set('Access-Control-Allow-Origin', '*'); 
     res.set("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
     res.set( " Access- Control-Allow -Headers : *") ;*/
     
 
     var upload = JSON.parse(req.body);
-    
-    
 
     console.log(req.body);
    /*var sql = `PREPARE check_lists (text, int) AS SELECT * FROM users WHERE list_name=$1 AND userID=$2; EXECUTE check_lists ('${upload["title"]}', '${upload["userID"]}') `; //SQL query*/
