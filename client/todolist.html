@@ -13,9 +13,10 @@
     <!--header id="main-header"-->
       <!--div class="container"-->
     <select id="selLists"></select>
+    <br><br>
         <input id="title" type="text" placeholder="Liste navn">
          <button id="btnCreate">Lag liste</button>
-          <br><br>
+        
          <button id="btnDelete">Slette Liste</button>
           <br><br>
         <input id="content" type="text" placeholder="Hva skal du huske på?">
@@ -240,13 +241,16 @@
            for (var i = 0; i < data.length; i++){
                
                var div = document.createElement("div");
+               div.classList.add("nyeliste");
                var h3_1 = document.createElement("h3");
-               //h3_1.classList.add("klassenavn");
+               h3_1.classList.add("klassenavn");
                var h3_2 = document.createElement("h3");
                var h3_3 = document.createElement("h3");
+               h3_3.classList.add("dato");
                var btn = document.createElement("button");
                btn.classList.add("klassenavnknapp");
                var hr = document.createElement("hr");
+               hr.classList.add("hr");
                
                
                var dato = new Date(data[i].dato).toDateString();
@@ -258,7 +262,7 @@
                btn.addEventListener("click", deleteLstElm);
                btn.id = data[i].itemid;
                hr.innerHTML = "<hr>";
-               
+              
                div.appendChild(h3_1);
                div.appendChild(h3_2);
                div.appendChild(h3_3);

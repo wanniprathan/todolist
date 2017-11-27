@@ -52,7 +52,7 @@
         function succ(data) {
         
         console.log(data);
-        txtinfo.innerHTML = "Velkommen bruker, " + data.loginname + ", du er nå logget inn på Todo List ";
+        txtinfo.innerHTML = "Velkommen bruker, " + data.loginname + "! Du er nå logget inn på Todo List ";
         
         //save logindata/token to localStorage 
         localStorage.setItem("logindata", JSON.stringify(data));
