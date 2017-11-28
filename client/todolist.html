@@ -13,12 +13,17 @@
     <!--header id="main-header"-->
       <!--div class="container"-->
     <select id="selLists"></select>
+    
+    <select id="rate">
+        <option value="viktig">VIKTIG</option>
+        <option value="ikke viktig">Ikke viktig</option>
+    </select>
+    
     <br><br>
         <input id="title" type="text" placeholder="Liste navn">
          <button id="btnCreate">Lag liste</button>
-        
          <button id="btnDelete">Slette Liste</button>
-          <br><br>
+          <br>
         <input id="content" type="text" placeholder="Hva skal du huske på?">
         <input id="dato" type="date">
         <button id="btnlistELement">Legg til mere på listen</button>
@@ -48,7 +53,8 @@
     
     var selLists = document.getElementById("selLists");
     var items = document.getElementById("items");
-    //var d = new Date(year, month, day);
+    var rate = document.getElementById("rate");
+    
     
     fillSelect();
     fillItemlist();
@@ -139,7 +145,8 @@
             title: title.value,
             content: content.value,
              dato: dato.value,
-             listId: selLists.value
+             listId: selLists.value,
+             rate: rate.value
                     
         });
         
@@ -237,6 +244,7 @@
             console.log(data);
             
             items.innerHTML = "";
+            rate.innnerHTML =="";
             
            for (var i = 0; i < data.length; i++){
                
@@ -245,10 +253,12 @@
                var h3_1 = document.createElement("h3");
                h3_1.classList.add("klassenavn");
                var h3_2 = document.createElement("h3");
+               h3_2.classList.add("klassenavn2");
                var h3_3 = document.createElement("h3");
                h3_3.classList.add("dato");
                var btn = document.createElement("button");
                btn.classList.add("klassenavnknapp");
+               var rt = document.createElement("h3");
                var hr = document.createElement("hr");
                hr.classList.add("hr");
                
@@ -261,15 +271,18 @@
                btn.innerHTML = "Delete";
                btn.addEventListener("click", deleteLstElm);
                btn.id = data[i].itemid;
+               rt.innerHTML = data[i].rate;
                hr.innerHTML = "<hr>";
               
                div.appendChild(h3_1);
                div.appendChild(h3_2);
                div.appendChild(h3_3);
-               div.appendChild(btn);               
+               div.appendChild(btn);
+               div.appendChild(rt);
                div.appendChild(hr);
                
                items.appendChild(div);
+            
                   
            }
             

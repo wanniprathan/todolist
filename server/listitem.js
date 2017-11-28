@@ -56,7 +56,7 @@ router.post('/', bodyparser, function (req, res) {
     console.log(req.body);
    /*var sql = `PREPARE check_lists (text, int) AS SELECT * FROM users WHERE list_name=$1 AND userID=$2; EXECUTE check_lists ('${upload["title"]}', '${upload["userID"]}') `; //SQL query*/
     
-     var sql = `PREPARE insert_items (int, text, text, date, int) AS INSERT INTO listitems VALUES(DEFAULT, $2, $3, $4, $5); EXECUTE insert_items (0, '${upload["title"]}', '${upload["content"]}', '${upload["dato"]}', ${upload["listId"]})`; //SQL query
+     var sql = `PREPARE insert_items (int, text, text, date, int, text) AS INSERT INTO listitems VALUES(DEFAULT, $2, $3, $4, $5, $6); EXECUTE insert_items (0, '${upload["title"]}', '${upload["content"]}', '${upload["dato"]}', ${upload["listId"]}, '${upload["rate"]}')`; //SQL query
     
     console.log(sql)
 
@@ -68,7 +68,8 @@ router.post('/', bodyparser, function (req, res) {
             msg: "insert ok",
             title: upload["title"],
             conten: upload["content"],
-            dato: upload["dato"]
+            dato: upload["dato"],
+            rate: upload["rate"]
         }
         
         res.status(200).json(senddata); //success!
