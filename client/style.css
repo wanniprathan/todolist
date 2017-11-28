@@ -1,8 +1,9 @@
 body{
     background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)),url(icon/notes.jpg);
     height: 40vh;
-    background-size: cover;
-    padding: 15px;
+    background-size: auto;
+    padding-top: 10px;
+    
     
 }
 
@@ -164,6 +165,3 @@ h2{
     margin-left: 1%;
 }
 
-select>viktig{
-    color: red;
-}

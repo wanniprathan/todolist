@@ -14,8 +14,6 @@ var jwt = require("jsonwebtoken");
 var secret = "Oops!";// used to create the token
 var logindata; //logindata from the token
 
-//app.use(bodyparser.json());
-//app.use(bodyparser.urlencoded({extended: true}));
 
 //Authorize all travel-endpoints --------------------
 router.use(function (req, res, next) {    
@@ -45,16 +43,10 @@ router.use(function (req, res, next) {
 
 //endpoint: POST list hører til todolist.html//listItem-----------------------------
 router.post('/', bodyparser, function (req, res) {
-    
-    /*res.set('Access-Control-Allow-Origin', '*'); 
-    res.set("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-    res.set( " Access- Control-Allow -Headers : *") ;*/
-    
 
     var upload = JSON.parse(req.body);
 
     console.log(req.body);
-   /*var sql = `PREPARE check_lists (text, int) AS SELECT * FROM users WHERE list_name=$1 AND userID=$2; EXECUTE check_lists ('${upload["title"]}', '${upload["userID"]}') `; //SQL query*/
     
      var sql = `PREPARE insert_items (int, text, text, date, int, text) AS INSERT INTO listitems VALUES(DEFAULT, $2, $3, $4, $5, $6); EXECUTE insert_items (0, '${upload["title"]}', '${upload["content"]}', '${upload["dato"]}', ${upload["listId"]}, '${upload["rate"]}')`; //SQL query
     
@@ -89,10 +81,6 @@ router.post('/', bodyparser, function (req, res) {
 //-- GET listItems  hører til todolist.html-----------------------------
 router.get('/', function (req, res) { //eksempel for senere -- app.get('/users/', function (req, res) {
     
-    //set headers
-    //res.set('Access-Control-Allow-Origin', '*'); 
-    // res.set("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-
     var sql = 'SELECT * FROM listview'; //SQL query
 
     //execute the SQL query    

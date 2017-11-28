@@ -40,22 +40,14 @@ router.post('/', bodyparser, function(req, res){
 
 
 //---------------------------------------------------------
-//---post for login hører til Login.html// loginn-----
+//---endpoint: post for login hører til Login.html// loginn-----
 router.post('/login/', bodyparser, function (req, res) {
     
-    /*res.set('Access-Control-Allow-Origin', '*'); 
-    res.set("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-    res.set( " Access- Control-Allow -Headers : *") ;*/
-    
-    //var upload = JSON.parse(req.body) om man skal ha tak i bruker navn så skriv .brukernavn;
+
     var upload = JSON.parse(req.body);
     
     console.log(upload, " is the upload");
-    
-    //var encrPassw = bcrypt.hashSync(upload.inpass, 10); 
-    //upload['encrPassw'] = encrPassw;
-    
-    //console.log(upload['encrPassw']);
+
     
     //console.log(req.body);
     var sql = `PREPARE check_users (text) AS SELECT * FROM users WHERE user_name=$1; EXECUTE check_users ('${upload["inpname"]}') `; //SQL query
@@ -78,12 +70,7 @@ router.post('/login/', bodyparser, function (req, res) {
             res.status(403).json({msg: 'Wrong password'});
             return;
         }
-        //if (data.length <= 0) {
-        //    console.log(data);
-        //    res.status(200).json({msg: "Ugyldig bruker!!"}); //success!
-        //    return;
-        //}
-           
+
         //create the token
         var payload = {userid: data[0].id, loginname: upload.inpname, fullname: data[0].fullname};
         var tok = jwt.sign(payload, secret, {expiresIn: "12h"});
@@ -106,13 +93,6 @@ router.post('/login/', bodyparser, function (req, res) {
 
 
 //---------------------------------------------------------
-
-
-
-
-
-
-
 
 //export module -------------------------------------
 module.exports = router;

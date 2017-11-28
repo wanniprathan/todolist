@@ -15,8 +15,8 @@
     <select id="selLists"></select>
     
     <select id="rate">
-        <option value="viktig">VIKTIG</option>
-        <option value="ikke viktig">Ikke viktig</option>
+        <option value="viktig">Viktig</option>
+        <option value="ikkeviktig">Ikke viktig</option>
     </select>
     
     <br><br>
@@ -272,6 +272,7 @@
                btn.addEventListener("click", deleteLstElm);
                btn.id = data[i].itemid;
                rt.innerHTML = data[i].rate;
+               
                hr.innerHTML = "<hr>";
               
                div.appendChild(h3_1);

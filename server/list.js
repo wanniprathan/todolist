@@ -46,11 +46,7 @@ router.post('/test', function(req, res) {
 //endpoint: POST list hører til todolist.html-----------------------------
 router.post('/', bodyparser, function (req, res) {
     
-   /* res.set('Access-Control-Allow-Origin', '*'); 
-    res.set("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-    res.set( " Access- Control-Allow -Headers : *") ;*/
-    
-
+ 
     var upload = JSON.parse(req.body);
     
    // console.log(req.body);
@@ -58,12 +54,8 @@ router.post('/', bodyparser, function (req, res) {
 
      var sql = `PREPARE insert_lists (int, text, int, text) AS INSERT INTO lists VALUES(DEFAULT, $2, $3, $4); EXECUTE insert_lists (0, '${upload["title"]}', ${logindata.userid}, '${logindata.loginname}')`; //SQL query
     
-    //var sql = `INSERT INTO lists VALUES(DEFAULT,'${upload["title"]}', ${logindata.userid}, ${logindata.loginname})`
-    
     
     console.log(sql);
-    
-   
     
 
     db.any(sql).then(function(data) {
@@ -91,11 +83,8 @@ router.post('/', bodyparser, function (req, res) {
 //-- GET liste  hører til todolist.html-----------------------------
 router.get('/', function (req, res) { //eksempel for senere -- app.get('/users/', function (req, res) {
     
-    //set headers
-   /* res.set('Access-Control-Allow-Origin', '*'); 
-    res.set("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");*/
 
-    var sql = 'SELECT * FROM lists'; //SQL query
+ var sql = 'SELECT * FROM lists'; //SQL query
 
     //execute the SQL query    
     db.any(sql).then(function(data) {        
@@ -112,15 +101,9 @@ router.get('/', function (req, res) { //eksempel for senere -- app.get('/users/'
 });
 
 
-
-
-
 //endpoint: DELETE liste hører til todolist.html-----------------------------
 router.delete('/', function (req, res) {      
     
-       //set headers
-    /*res.set('Access-Control-Allow-Origin', '*'); 
-    res.set("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");*/
     
     var upload = req.query.listeid; //uploaded data should be sanitized
 
