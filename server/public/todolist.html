@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Todo list</title>    
+    <script src="superfetch.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <!--header id="main-header"-->
+      <!--div class="container"-->
+    <select id="selLists"></select>
+    
+    <select id="rate">
+        <option value="viktig">Viktig</option>
+        <option value="ikkeviktig">Ikke viktig</option>
+    </select>
+    
+    <br><br>
+        <input id="title" type="text" placeholder="Liste navn">
+         <button id="btnCreate">Lag liste</button>
+         <button id="btnDelete">Slette Liste</button>
+          <br>
+        <input id="content" type="text" placeholder="Hva skal du huske på?">
+        <input id="dato" type="date">
+        <button id="btnlistELement">Legg til mere på listen</button>
+          <br><br>
+        
+       
+    
+    
+       <div id="items"></div>
+         
+      <!--/div-->  
+    <!--/header-->
+    
+    
+</body>
+
+<script>
+    
+    var title = document.getElementById("title");
+    var btnCreate = document.getElementById("btnCreate");
+    var btnDelete = document.getElementById("btnDelete");
+    
+    var content = document.getElementById("content");
+    var dato = document.getElementById("dato");
+    var btnlistELement = document.getElementById("btnlistELement");
+    var btnDeletelistELement = document.getElementById("btnDeletelistELement");
+    
+    var selLists = document.getElementById("selLists");
+    var items = document.getElementById("items");
+    var rate = document.getElementById("rate");
+    
+    
+    fillSelect();
+    fillItemlist();
+   
+  
+      
+    //Knappen her lager liste-----------
+    btnCreate.onclick = function() {
+        
+         var upload = JSON.stringify({            
+            title: title.value
+                    
+        });
+        
+        var token = JSON.parse(localStorage.getItem("logindata")).token;  
+        var url = "http://localhost:3001/list/?token=" + token;
+        
+
+        var cfg = {
+            method: "POST",            
+            body: upload
+            
+        }      
+
+        superfetch(url, "json", succ, error, cfg);
+    }
+   
+    
+    //success --------------------------------------
+    function succ(data) {
+       fillItemlist();
+       fillSelect();
+    }
+    
+    //error ----------------------------------------
+    function error(err) {
+        console.log(err);
+    }
+    
+    
+    
+     //Funksjon delete, sletter lister
+    btnDelete.onclick = function() {
+        
+        var upload = JSON.stringify({            
+            title: title.value,
+            content: content.value,
+             dato: dato.value,
+             listId: selLists.value
+                    
+        });
+        
+        var token = JSON.parse(localStorage.getItem("logindata")).token;  
+        var url = "http://localhost:3001/list/?listeid=" + selLists.value + "&token=" + token;
+        
+
+        var cfg = {
+            method: "DELETE"
+            
+        }      
+
+        superfetch(url, "json", function(data){
+            
+            console.log(data);
+            fillSelect();
+            fillItemlist();
+            
+        }, function(err){
+            
+            console.log(err);
+            
+        }, cfg);    
+        
+    }
+     
+    //error ----------------------------------------
+    function error(err) {
+        console.log(err);
+    }
+    
+    
+    
+      
+     //Knappen her legger til mere på listen-----------
+    btnlistELement.onclick = function() {
+        
+         var upload = JSON.stringify({            
+            title: title.value,
+            content: content.value,
+             dato: dato.value,
+             listId: selLists.value,
+             rate: rate.value
+                    
+        });
+        
+        var token = JSON.parse(localStorage.getItem("logindata")).token;  
+        var url = "http://localhost:3001/listitem/?token=" + token;
+        
+
+        var cfg = {
+            method: "POST",            
+            body: upload
+            
+        }      
+
+        superfetch(url, "json", succ, error, cfg);
+    }
+    
+   
+    //Knappen her sletter innehold i selveste listen
+    function deleteLstElm(evt) {
+        
+        
+        var listitemid = evt.currentTarget.id;        
+        
+         var token = JSON.parse(localStorage.getItem("logindata")).token;  
+        var url = "http://localhost:3001/listitem/?listitemid=" + listitemid + "&token=" + token;
+        
+
+        var cfg = {
+            method: "DELETE"
+            
+        }      
+
+        superfetch(url, "json", function(data){
+            
+            console.log(data);
+            //fillSelect();
+            fillItemlist();
+            
+        }, function(err){
+            
+            console.log(err);
+            
+        }, cfg);    
+        
+    }
+    
+   
+
+    
+    //funksjonen her lagrer/lager nye verdier i select--------------
+    
+    function fillSelect() {
+        
+        var token = JSON.parse(localStorage.getItem("logindata")).token; 
+        var url = "http://localhost:3001/list/?token=" + token;
+             
+
+        superfetch(url, "json", function(data){
+            
+            selLists.innerHTML = "";
+            
+           for (var i = 0; i < data.length; i++){
+               
+               var op = document.createElement("option");
+               op.innerHTML=data[i].list_name;
+               op.value = data[i].id;
+               selLists.appendChild(op);
+               
+               //få tak i listeideen fra select med: selLists.value
+               
+           }
+            
+        }, function(err){
+            
+            console.log(err);
+            
+        });
+        
+    }
+    
+    
+      
+    
+    //Funksjonen fillItemList henter ut alt på get listItem
+    
+    
+    function fillItemlist() {
+        
+         var token = JSON.parse(localStorage.getItem("logindata")).token; 
+         var url = "http://localhost:3001/listitem/?token=" + token;
+           
+
+        superfetch(url, "json", function(data){
+            
+            console.log(data);
+            
+            items.innerHTML = "";
+            rate.innnerHTML =="";
+            
+           for (var i = 0; i < data.length; i++){
+               
+               var div = document.createElement("div");
+               div.classList.add("nyeliste");
+               var h3_1 = document.createElement("h3");
+               h3_1.classList.add("klassenavn");
+               var h3_2 = document.createElement("h3");
+               h3_2.classList.add("klassenavn2");
+               var h3_3 = document.createElement("h3");
+               h3_3.classList.add("dato");
+               var btn = document.createElement("button");
+               btn.classList.add("klassenavnknapp");
+               var rt = document.createElement("h3");
+               var hr = document.createElement("hr");
+               hr.classList.add("hr");
+               
+               
+               var dato = new Date(data[i].dato).toDateString();
+               
+               h3_1.innerHTML = "<h3> " + data[i].list_name + "</h3>";
+               h3_2.innerHTML = "<h3> " + data[i].data + "</h3>";
+               h3_3.innerHTML = "<h3> Deadline: " + dato + "</h3>";
+               btn.innerHTML = "Delete";
+               btn.addEventListener("click", deleteLstElm);
+               btn.id = data[i].itemid;
+               rt.innerHTML = data[i].rate;
+               
+               hr.innerHTML = "<hr>";
+              
+               div.appendChild(h3_1);
+               div.appendChild(h3_2);
+               div.appendChild(h3_3);
+               div.appendChild(btn);
+               div.appendChild(rt);
+               div.appendChild(hr);
+               
+               items.appendChild(div);
+            
+                  
+           }
+            
+        }, function(err){
+            
+            console.log(err);
+            
+        });
+        
+    }
+
+</script>
+
+</html>
