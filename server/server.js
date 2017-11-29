@@ -1,7 +1,10 @@
 var express = require('express');
 var app = express(); //server-app
+var path = require('path');
 
-app.use(express.static(__dirname + '/public'));
+
+var str = __dirname.substring(0, __dirname.length - 6);
+app.use(express.static(str + '/client'));
 //var db = require('./dbconnect'); //database
 
 app.use(function(req, res, next){
@@ -26,10 +29,20 @@ app.use('/list/', list);
 var listitem = require('./listitem.js');
 app.use('/listitem/', listitem);
 
-app.get('/index', function (req, res) {
-    let staticApp = readTextFile("public/CreateUser.html");
-    res.send(staticApp);
+app.get('/CreateUser',function(req,res){
+    
+    //console.log(str);
+     //res.sendFile(path.join(str + '/client/CreateUser.html'));
+    res.sendFile(path.join(str + '/client/CreateUser.html'));
 });
+
+app.get('/loginUser',function(req,res){
+    
+    //console.log(str);
+     //res.sendFile(path.join(str + '/client/CreateUser.html'));
+    res.sendFile(path.join(str + '/client/index.html'));
+});
+
 
 
 var port = process.env.PORT||3001;

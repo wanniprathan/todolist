@@ -91,6 +91,13 @@ router.post('/login/', bodyparser, function (req, res) {
 });
 
 
+router.get('/index/',function(req,res){
+    console.log(__dirname);
+     //res.sendFile(path.join(__dirname + '/client/CreateUser.html'));
+});
+
+ //console.log(req.body);
+
 
 //---------------------------------------------------------
 
