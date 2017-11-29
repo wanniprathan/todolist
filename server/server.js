@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express(); //server-app
 
-app.use(express.static('/server/public'));
+app.use(express.static('/public'));
 //var db = require('./dbconnect'); //database
 
 app.use(function(req, res, next){
