@@ -107,91 +107,91 @@
                     
         });
         
-        var token = JSON.parse(localStorage.getItem("logindata")).token;  
-        var url = "http://localhost:3001/list/?listeid=" + selLists.value + "&token=" + token;
+            var token = JSON.parse(localStorage.getItem("logindata")).token;  
+            var url = "http://localhost:3001/list/?listeid=" + selLists.value + "&token=" + token;
         
 
-        var cfg = {
+            var cfg = {
             method: "DELETE"
             
-        }      
+                }      
 
-        superfetch(url, "json", function(data){
+            superfetch(url, "json", function(data){
             
             console.log(data);
             fillSelect();
             fillItemlist();
             
-        }, function(err){
+            }, function(err){
             
             console.log(err);
             
-        }, cfg);    
+            }, cfg);    
         
-    }
+        }
      
-    //error ----------------------------------------
-    function error(err) {
-        console.log(err);
-    }
+        //error ----------------------------------------
+        function error(err) {
+            console.log(err);
+        }
     
     
     
       
-     //Knappen her legger til mere på listen-----------
-    btnlistELement.onclick = function() {
+        //Knappen her legger til mere på listen-----------
+        btnlistELement.onclick = function() {
         
-         var upload = JSON.stringify({            
-            title: title.value,
-            content: content.value,
-             dato: dato.value,
-             listId: selLists.value,
-             rate: rate.value
+            var upload = JSON.stringify({            
+                title: title.value,
+                content: content.value,
+                dato: dato.value,
+                listId: selLists.value,
+                rate: rate.value
                     
-        });
+            });
         
-        var token = JSON.parse(localStorage.getItem("logindata")).token;  
-        var url = "http://localhost:3001/listitem/?token=" + token;
+            var token = JSON.parse(localStorage.getItem("logindata")).token;  
+            var url = "http://localhost:3001/listitem/?token=" + token;
         
 
-        var cfg = {
-            method: "POST",            
-            body: upload
+            var cfg = {
+                method: "POST",            
+                body: upload
             
-        }      
+                }      
 
-        superfetch(url, "json", succ, error, cfg);
-    }
+            superfetch(url, "json", succ, error, cfg);
+        }
     
    
-    //Knappen her sletter innehold i selveste listen
-    function deleteLstElm(evt) {
+        //Knappen her sletter innehold i selveste listen
+        function deleteLstElm(evt) {
         
         
-        var listitemid = evt.currentTarget.id;        
+            var listitemid = evt.currentTarget.id;        
         
-         var token = JSON.parse(localStorage.getItem("logindata")).token;  
-        var url = "http://localhost:3001/listitem/?listitemid=" + listitemid + "&token=" + token;
+            var token = JSON.parse(localStorage.getItem("logindata")).token;  
+            var url = "http://localhost:3001/listitem/?listitemid=" + listitemid + "&token=" + token;
         
 
-        var cfg = {
+            var cfg = {
             method: "DELETE"
             
-        }      
+            }      
 
-        superfetch(url, "json", function(data){
+            superfetch(url, "json", function(data){
             
-            console.log(data);
-            //fillSelect();
-            fillItemlist();
+                console.log(data);
+                //fillSelect();
+                fillItemlist();
             
-        }, function(err){
+                }, function(err){
             
-            console.log(err);
+                console.log(err);
             
-        }, cfg);    
+                }, cfg);    
         
-    }
+            }
     
    
 
@@ -208,7 +208,7 @@
             
             selLists.innerHTML = "";
             
-           for (var i = 0; i < data.length; i++){
+            for (var i = 0; i < data.length; i++){
                
                var op = document.createElement("option");
                op.innerHTML=data[i].list_name;
@@ -219,7 +219,7 @@
                
            }
             
-        }, function(err){
+            }, function(err){
             
             console.log(err);
             
@@ -246,7 +246,7 @@
             items.innerHTML = "";
             rate.innnerHTML =="";
             
-           for (var i = 0; i < data.length; i++){
+            for (var i = 0; i < data.length; i++){
                
                var div = document.createElement("div");
                div.classList.add("nyeliste");
