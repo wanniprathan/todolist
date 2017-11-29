@@ -1,0 +1,71 @@
+<html>
+    <head>
+
+        <title>Log inn</title>
+        <script src="superfetch.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <input id="inpname" type="text" placeholder="User name" />
+        <input id="inpass" type="password" placeholder="password" />
+        <br>
+        <button id="btnLoginn">Log inn</button>
+        <p class="message">Not Registered? <a href="#">Register</a></p>
+        
+          <h2 id="txtinfo"></h2>
+            
+
+    <script>
+            
+            var inpname = document.getElementById("inpname");
+            var inpass = document.getElementById("inpass");       
+            var btnLoginn = document.getElementById("btnLoginn");
+            var txtinfo = document.getElementById("txtinfo"); 
+    
+        
+            
+         //button click ---------------------------------
+        btnLoginn.onclick = function() {
+            
+            var upload = JSON.stringify({            
+            inpname: inpname.value,
+            inpass: inpass.value            
+        });
+        
+         var url = "https://todolistvol2.herokuapp.com/users/login/";
+
+        var cfg = {
+            method: "POST",            
+            body: upload
+        }      
+
+        superfetch(url, "json", succ, error, cfg);
+            
+        }      
+
+       //success --------------------------------------
+        function succ(data) {
+        
+        console.log(data);
+        txtinfo.innerHTML = "Velkommen bruker, " + data.loginname + "! Du er nå logget inn på Todo List ";
+        
+        //save logindata/token to localStorage 
+        localStorage.setItem("logindata", JSON.stringify(data));
+    }
+    
+    //error ----------------------------------------
+    function error(err) {
+        console.log(err);
+    }
+
+            
+
+    </script>
+
+    </body>
+</html>
