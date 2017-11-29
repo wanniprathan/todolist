@@ -26,6 +26,11 @@ app.use('/list/', list);
 var listitem = require('./listitem.js');
 app.use('/listitem/', listitem);
 
+app.get('/index', function (req, res) {
+    let staticApp = readTextFile("public/CreateUser.html");
+    res.send(staticApp);
+});
+
 
 var port = process.env.PORT||3001;
 app.listen(port, function () {
