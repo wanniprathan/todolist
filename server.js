@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express(); //server-app
 
-/*
+
 var path = require('path');
 
 
@@ -12,7 +12,7 @@ var path = require('path');
 
 //app.use(express.static(__dirname + "/client"));
 
-
+/*
 app.use(function(req, res, next){
     
     res.set('Access-Control-Allow-Origin', '*'); 
