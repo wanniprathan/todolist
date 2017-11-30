@@ -37,8 +37,8 @@
             inpass: inpass.value            
         });
         
-         var url = "https://todolistvol2.herokuapp.com/users/login/";
-            //var url = "http://localhost:3001/users/login/";
+         //var url = "https://todolistvol2.herokuapp.com/users/login/";
+            var url = "http://localhost:3001/users/login/";
             
         var cfg = {
             method: "POST",            
@@ -54,9 +54,18 @@
         
         console.log(data);
         txtinfo.innerHTML = "Velkommen bruker, " + data.loginname + "! Du er nå logget inn på Todo List ";
-        window.location.assign("http://");
-        //save logindata/token to localStorage 
+        
+          
+        
+        //save logindata/token to localStorage
+        
+
+        window.location.assign("http://localhost:3001/todolist");
         localStorage.setItem("logindata", JSON.stringify(data));
+
+
+            
+        
     }
     
     //error ----------------------------------------

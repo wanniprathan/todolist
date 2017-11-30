@@ -49,9 +49,9 @@
             fullname: inpfullname.value            
         });       
         
-        var url = "https://todolistvol2.herokuapp.com/users/";
+        //var url = "https://todolistvol2.herokuapp.com/users/";
         
-        //var url = "http://localhost:3001/users/";
+        var url = "http://localhost:3001/users/";
 
         var cfg = {
             method: "POST",            
@@ -69,13 +69,14 @@
         
         if(data.msg == "Ugyldig brukernavn!!"){
             //alert("Brukeren finnes fra før");
+            
             txtinfo.innerHTML = "Brukeren finnes fra før!";
         }
         else{
         
         
         txtinfo.innerHTML = "Brukeren, " + data.loginname + ", er oppretted. Fullt navn " + data.fullname;
-        
+        window.location.assign("http://localhost:3001/loginUser");
         }
         /*for (var i = 0; i<data.length; i++){
             var div = document.createElement("div");
