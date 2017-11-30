@@ -8,7 +8,7 @@ var path = require('path');
 //app.use(express.static(str + '/client'));
 //var db = require('./dbconnect'); //database
 
-app.use(express.static(__dirname + "/client"));
+//app.use(express.static(__dirname + "/client"));
 
 
 app.use(function(req, res, next){
