@@ -3,7 +3,7 @@ var router = express.Router();
 var db = require('./dbconnect'); //database
 var bodyparser = require('body-parser').text();
 var jwt = require("jsonwebtoken");
-var bcrypt = require('bcrypt');
+//var bcrypt = require('bcrypt');
 
 var secret = "Oops!";// used to create the token
 
