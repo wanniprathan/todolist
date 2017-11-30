@@ -1,5 +1,7 @@
 var express = require('express');
 var app = express(); //server-app
+
+/*
 var path = require('path');
 
 
@@ -59,8 +61,9 @@ app.get('/todolist',function(req,res){
     //console.log(str);
      //res.sendFile(path.join(str + '/client/CreateUser.html'));
     res.sendFile(path.join(str + '/client/todolist.html'));
-});*/
+});
 
+*/
 
 var port = process.env.PORT||3001;
 app.listen(port, function () {
