@@ -70,8 +70,8 @@
         });
         
         var token = JSON.parse(localStorage.getItem("logindata")).token;  
-        //var url = "https://todolistvol2.herokuapp.com/list/?token=" + token;
-        var url = "http://localhost:3001/list/?token=" + token;
+        var url = "https://todolistvol2.herokuapp.com/list/?token=" + token;
+        //var url = "http://localhost:3001/list/?token=" + token;
 
         var cfg = {
             method: "POST",            
@@ -108,8 +108,8 @@
         });
         
             var token = JSON.parse(localStorage.getItem("logindata")).token;  
-            //var url = "https://todolistvol2.herokuapp.com/list/?listeid=" + selLists.value + "&token=" + token;
-            var url = "http://localhost:3001/list/?listeid=" + selLists.value + "&token=" + token;
+            var url = "https://todolistvol2.herokuapp.com/list/?listeid=" + selLists.value + "&token=" + token;
+            //var url = "http://localhost:3001/list/?listeid=" + selLists.value + "&token=" + token;
 
             var cfg = {
             method: "DELETE"
@@ -151,8 +151,8 @@
             });
         
             var token = JSON.parse(localStorage.getItem("logindata")).token;  
-            //var url = "https://todolistvol2.herokuapp.com/listitem/?token=" + token;
-            var url = "http://localhost:3001/listitem/?token=" + token;
+            var url = "https://todolistvol2.herokuapp.com/listitem/?token=" + token;
+            //var url = "http://localhost:3001/listitem/?token=" + token;
 
             var cfg = {
                 method: "POST",            
@@ -171,8 +171,8 @@
             var listitemid = evt.currentTarget.id;        
         
             var token = JSON.parse(localStorage.getItem("logindata")).token;  
-            //var url = "https://todolistvol2.herokuapp.com/listitem/?listitemid=" + listitemid + "&token=" + token;
-             var url = "http://localhost:3001/listitem/?listitemid=" + listitemid + "&token=" + token;
+            var url = "https://todolistvol2.herokuapp.com/listitem/?listitemid=" + listitemid + "&token=" + token;
+             //var url = "http://localhost:3001/listitem/?listitemid=" + listitemid + "&token=" + token;
 
             var cfg = {
             method: "DELETE"
@@ -201,8 +201,8 @@
     function fillSelect() {
         
         var token = JSON.parse(localStorage.getItem("logindata")).token; 
-        //var url = "https://todolistvol2.herokuapp.com/list/?token=" + token;
-          var url = "http://localhost:3001/list/?token=" + token; 
+        var url = "https://todolistvol2.herokuapp.com/list/?token=" + token;
+          //var url = "http://localhost:3001/list/?token=" + token; 
 
         superfetch(url, "json", function(data){
             
@@ -236,8 +236,8 @@
     function fillItemlist() {
         
          var token = JSON.parse(localStorage.getItem("logindata")).token; 
-         //var url = "https://todolistvol2.herokuapp.com/listitem/?token=" + token;
-            var url = "http://localhost:3001/listitem/?token=" + token;
+         var url = "https://todolistvol2.herokuapp.com/listitem/?token=" + token;
+            //var url = "http://localhost:3001/listitem/?token=" + token;
 
         superfetch(url, "json", function(data){
             

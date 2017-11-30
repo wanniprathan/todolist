@@ -92,6 +92,10 @@ router.post('/login/', bodyparser, function (req, res) {
 
 
 
+
+ //console.log(req.body);
+
+
 //---------------------------------------------------------
 
 //export module -------------------------------------
