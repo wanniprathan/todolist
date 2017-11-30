@@ -22,13 +22,15 @@ app.use(function(req, res, next){
     next();
 });
 
-/*
+
 
 //app.use(bodyparser.json());
 //app.use(bodyparser.urlencoded({extended: true}));
 
 var users = require('./users.js');
 app.use('/users/', users);
+
+/*
 
 var list = require('./list.js');
 app.use('/list/', list);
