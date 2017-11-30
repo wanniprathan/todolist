@@ -39,7 +39,7 @@ app.use('/listitem/', listitem);
 //var str = __dirname.substring(0, __dirname.length - 6);
 
 
-app.get('/CreateUser',function(req,res){
+/*app.get('/CreateUser',function(req,res){
     
     //console.log(str);
      //res.sendFile(path.join(str + '/client/CreateUser.html'));
@@ -58,7 +58,7 @@ app.get('/todolist',function(req,res){
     //console.log(str);
      //res.sendFile(path.join(str + '/client/CreateUser.html'));
     res.sendFile(path.join(str + '/client/todolist.html'));
-});
+});*/
 
 
 var port = process.env.PORT||3001;
