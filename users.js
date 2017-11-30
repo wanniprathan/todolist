@@ -7,6 +7,8 @@ var bcrypt = require('bcrypt');
 
 var secret = "Oops!";// used to create the token
 
+/*
+
 
 //endpoint: POST users med kryptert passw, lag ny bruker------------------------------
 router.post('/', bodyparser, function(req, res){
@@ -94,7 +96,7 @@ router.post('/login/', bodyparser, function (req, res) {
 
 
  //console.log(req.body);
-
+*/
 
 //---------------------------------------------------------
 
