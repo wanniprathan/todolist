@@ -34,6 +34,7 @@ var listitem = require('./listitem.js');
 app.use('/listitem/', listitem);
 
 
+
 // HACK HACK HACK - Setting the current directory to /client, removing the /server. Since they 
 // are together in the same file. Should perhaps not be??
 //var str = __dirname.substring(0, __dirname.length - 6);
