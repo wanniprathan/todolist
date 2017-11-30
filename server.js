@@ -12,7 +12,7 @@ var path = require('path');
 
 app.use(express.static(__dirname + "/client"));
 
-/*
+
 app.use(function(req, res, next){
     
     res.set('Access-Control-Allow-Origin', '*'); 
@@ -21,6 +21,8 @@ app.use(function(req, res, next){
 
     next();
 });
+
+/*
 
 //app.use(bodyparser.json());
 //app.use(bodyparser.urlencoded({extended: true}));
