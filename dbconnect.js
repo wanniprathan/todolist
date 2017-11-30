@@ -1,5 +1,5 @@
 var pgp = require('pg-promise')();
-pgp.pg.defaults.ssl = true;
+//pgp.pg.defaults.ssl = true;
 
 //db connect string
 var conn = process.env.DATABASE_URL || 'postgres://postgres:modul2@localhost:3000/todolist';
