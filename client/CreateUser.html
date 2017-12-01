@@ -75,27 +75,19 @@
         else{
         
         
-        txtinfo.innerHTML = "Brukeren, " + data.loginname + ", er oppretted. Fullt navn " + data.fullname;
+        
         //window.location.assign("http://todolistvol2.herokuapp.com/loginUser");
         window.location.assign("http://localhost:3001/index.html");
         }
-        /*for (var i = 0; i<data.length; i++){
-            var div = document.createElement("div");
-            
-            div.innerHTML += "<h3>ID: " + data[i].id + "</h3>";
-            div.innerHTML += "<h3>User: " + data[i].user_name + "</h3>";
-            
-            var hr = document.createElement("hr");
-            document.body.appendChild(div);
-            document.body.appendChild(hr);
-        }*/
+      
     }
     
     function error(err) {
         console.log(err);
+         txtinfo.innerHTML = "Denne brukeren finnes fra før"
     }
 
-      
+    //txtinfo.innerHTML = "Brukeren, " + data.loginname + ", er oppretted. Fullt navn " + data.fullname;  
 
 
 </script>

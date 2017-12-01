@@ -80,7 +80,7 @@ router.post('/', bodyparser, function (req, res) {
 
 
 
-//-- GET liste  hører til todolist.html-----------------------------
+//-- endpoint: GET liste  hører til todolist.html-----------------------------
 router.get('/', function (req, res) { //eksempel for senere -- app.get('/users/', function (req, res) {
     
 
