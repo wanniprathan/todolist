@@ -81,8 +81,10 @@ router.post('/', bodyparser, function (req, res) {
 //-- GET listItems  hører til todolist.html-----------------------------
 router.get('/', function (req, res) { //eksempel for senere -- app.get('/users/', function (req, res) {
     
-    var sql = 'SELECT * FROM listview'; //SQL query
-
+    var sql = `SELECT * FROM listview WHERE userid ='${logindata.userid}'`; //SQL query
+    
+    console.log(sql)
+    
     //execute the SQL query    
     db.any(sql).then(function(data) {        
         

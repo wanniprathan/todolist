@@ -37,8 +37,8 @@
             inpass: inpass.value            
         });
         
-         var url = "https://todolistvol2.herokuapp.com/users/login/";
-         //var url = "http://localhost:3001/users/login/";
+         //var url = "https://todolistvol2.herokuapp.com/users/login/";
+         var url = "http://localhost:3001/users/login/";
             
         var cfg = {
             method: "POST",            
@@ -60,8 +60,8 @@
         //save logindata/token to localStorage
         
 
-        //window.location.assign("http://localhost:3001/todolist");
-        window.location.assign("https://todolistvol2.herokuapp.com/todolist/");
+        window.location.assign("http://localhost:3001/todolist.html");
+        //window.location.assign("https://todolistvol2.herokuapp.com/todolist/");
         localStorage.setItem("logindata", JSON.stringify(data));
 
 
@@ -72,6 +72,7 @@
     //error ----------------------------------------
     function error(err) {
         console.log(err);
+        txtinfo.innerHTML = "Bruker eksisterer ikke!"
     }
 
             

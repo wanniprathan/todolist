@@ -49,9 +49,9 @@
             fullname: inpfullname.value            
         });       
         
-        var url = "https://todolistvol2.herokuapp.com/users/";
+        //var url = "https://todolistvol2.herokuapp.com/users/";
         
-        //var url = "http://localhost:3001/users/";
+        var url = "http://localhost:3001/users/";
 
         var cfg = {
             method: "POST",            
@@ -76,8 +76,8 @@
         
         
         txtinfo.innerHTML = "Brukeren, " + data.loginname + ", er oppretted. Fullt navn " + data.fullname;
-        window.location.assign("http://todolistvol2.herokuapp.com/loginUser");
-        //window.location.assign("http://localhost:3001/loginUser");
+        //window.location.assign("http://todolistvol2.herokuapp.com/loginUser");
+        window.location.assign("http://localhost:3001/index.html");
         }
         /*for (var i = 0; i<data.length; i++){
             var div = document.createElement("div");

@@ -84,7 +84,7 @@ router.post('/', bodyparser, function (req, res) {
 router.get('/', function (req, res) { //eksempel for senere -- app.get('/users/', function (req, res) {
     
 
- var sql = 'SELECT * FROM lists'; //SQL query
+ var sql = `SELECT * FROM lists WHERE userid ='${logindata.userid}'`; //SQL query
 
     //execute the SQL query    
     db.any(sql).then(function(data) {        
